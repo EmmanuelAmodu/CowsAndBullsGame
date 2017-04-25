@@ -10,10 +10,13 @@ bool AskToPlayAgain();
 FBullCowGame BCGame; //instantiate a new game
 
 int main() {
+	std::cout << BCGame.GetCurrentTry();
 	constexpr int WORD_LENGTH = 5;
 	PrintIntro(WORD_LENGTH);
-	std::string Guess = "";
-	PlayGame(Guess);
+	do {
+		std::string Guess = "";
+		PlayGame(Guess);
+	} while (AskToPlayAgain() == 1);
 	return 0;
 }
 
@@ -32,9 +35,6 @@ void PlayGame(std::string &Guess) {
 
 	for (int count = 1; count <= MaxTries; count++) {
 		std::cout << "Your Guess was - " << GetGuess(Guess) << std::endl;
-	}
-	if (AskToPlayAgain() == 1) {
-		PlayGame(Guess);
 	}
 	return;
 }

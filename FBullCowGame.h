@@ -3,6 +3,8 @@
 
 class FBullCowGame {
 public: 
+	FBullCowGame(); //constructor
+
 	int GetMaxTries() const;
 	std::string getStartingWord(int WORD_LENGTH) const;
 	int GetCurrentTry() const;
@@ -12,7 +14,7 @@ public:
 	bool CheckGuessValidity(std::string);
 
 private: 
-	int MyCurrentTry = 1;
-	int MyMaxTries = 5;
-	bool IsIsogram(std::string Word);
+	// see constructor for definitions
+	int MyCurrentTry;
+	int MyMaxTries;
 };
