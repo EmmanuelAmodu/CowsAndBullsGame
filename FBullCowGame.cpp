@@ -1,6 +1,4 @@
 #include "FBullCowGame.h"
-#include <stdlib.h>
-#include <time.h>
 
 using int32 = int;
 
@@ -10,50 +8,58 @@ int32 FBullCowGame::GetMaxTries() const { return MyMaxTries; }
 
 int32 FBullCowGame::GetCurrentTry() const { return MyCurrentTry; }
 
+int32 FBullCowGame::GetHiddenWordLength() const { return MyHiddenWord.length(); }
+
 void FBullCowGame::reset() {
 	constexpr int32 Max_Tries = 8;
 	MyMaxTries = Max_Tries;
-	MyHiddenWord = getStartingWord();
+	MyHiddenWord = "morphy";
 	MyCurrentTry = 1;
 	return;
-}
-
-FString FBullCowGame::getStartingWord() const {
-	srand((unsigned int)time(NULL));
-	int32 output = rand() % 3;
-	return WORD_LIST[output];
 }
 
 bool FBullCowGame::IsGameWon() const  {
 	return false;
 }
 
-bool FBullCowGame::CheckGuessValidity(FString guess) {
-	return false;
+EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const {
+	// if is not an isogram, 
+	if (false) {
+		// return error
+		return EGuessStatus::Not_Isogram;
+	}
+	// if the guess isn't all lowercase,
+	else if (false) {
+		// return error
+		return EGuessStatus::Not_LowerCase;
+	}
+	// if guess length is wrong
+	else if (GetHiddenWordLength() != Guess.length()) {
+		// return error
+		return EGuessStatus::Wrong_Word_Length;
+	}
+	// otherwise 
+	else {
+		// return ok
+		return EGuessStatus::OK;
+	}
 }
 // recieves a valid guess increments turn, and return count
-FBullCowCount FBullCowGame::SubmitGuess(FString Guess) {
-	//increment return number
+FBullCowCount FBullCowGame::SubmitValidGuess(FString Guess) {
 	MyCurrentTry++;
 
 	//set up return structure
 	FBullCowCount BullCowCount;
 
-	//compare letters against the hidden word
 	int32 GuessLength = Guess.length();
-	for (int32 j = 0; j < GuessLength; j++) {
-		//if chars match then
+	for (int32 j = 0; j < GuessLength; j++) { // compare letters against the hidden word
 		int32 PositionOfChar = MyHiddenWord.find(Guess[j]);
-		if (PositionOfChar || Guess[j] == MyHiddenWord[0]) {
-			// if they are in the same place
-			if (PositionOfChar == j) {
-				//increment bulls 
-				BullCowCount.Bulls++;
+		if (PositionOfChar != -1) { // if chars match then
+			if (PositionOfChar == j) {  // if they are in the same place
+				BullCowCount.Bulls++; // increment bulls 
 			}
-			// else they are not
-			else {
-				//increment cows
-				BullCowCount.Cows++;
+			else { // else they are not
+				BullCowCount.Cows++; // increment cows
 			}
 		}
 	}
