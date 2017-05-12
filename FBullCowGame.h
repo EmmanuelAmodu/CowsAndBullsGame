@@ -36,5 +36,8 @@ private:
 	// see constructor for definitions
 	int32 MyCurrentTry;
 	int32 MyMaxTries;
+	int32 CurrentBullsNumber;
 	FString MyHiddenWord;
+	bool Isisogram(FString) const;
+	bool IsLowercase(FString) const;
 };
